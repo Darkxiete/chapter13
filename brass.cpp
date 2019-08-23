@@ -22,7 +22,7 @@ Brass::Brass(const string &s, long an, double bal) {
     balance = bal;
 }
 
-void Brass::Despoit(double amt) {
+void Brass::Deposit(double amt) {
     if (amt < 0)
         cout << "Negative deposit not allowed; "
              << "deposit is cancelled.\n";
@@ -91,7 +91,7 @@ void BrassPlus::Withdraw(double amt) {
         owesBank += advance * (1 + rate);
         cout << "Bank advance:  $" << advance << endl;
         cout << "Finance charge: $" << advance * rate << endl;
-        Despoit(advance);
+        Deposit(advance);
         Brass::Withdraw(amt);
     } else
         cout << "Credit limit exceeded. Transaction cancelled.\n";

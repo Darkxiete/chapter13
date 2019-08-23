@@ -19,7 +19,7 @@ public:
 
     virtual ~Brass() {};
 
-    void Despoit(double amt);
+    void Deposit(double amt);
 
     virtual void Withdraw(double amt);
 
