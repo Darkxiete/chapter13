@@ -10,12 +10,12 @@
 using std::cout;
 using std::endl;
 
+
 class ClassA {
-private:
-    double number;
+
 public:
 
-
+    double number;
     ClassA() {
         number = 0;
         cout << "Default constructor: ClassA!" << endl;
@@ -25,21 +25,48 @@ public:
         number = n;
         cout << "Constructor: ClassA!" << endl;
     };
+
+    ClassA(const ClassA &a) {
+        cout << "Duplicate Constructor: ClassA!" << endl;
+    }
+
     virtual ~ClassA() {
         cout << "Destructor: ClassA!" << endl;
     }
 
-    ClassA func1(const ClassA & a) {
+    ClassA func1(const ClassA &a) {
         cout << "Number: " << number << endl;
         ClassA tmp = ClassA(a.number + 1);
         return tmp;
     }
 
-//    ClassA & func2(const ClassA & a) {
-//        cout << "Number: " << number << endl;
-//        ClassA tmp = ClassA(a.number + 1);
-//        return tmp;
-//    }
+    ClassA operator>(const ClassA &b) {
+        if (this->number > b.number)
+            return *this;
+        else
+            return b;
+    }
+
+    ClassA &operator<(ClassA &b) {
+        if (this->number > b.number)
+            return *this;
+        else
+            return b;
+    }
+
+    ClassA &operator=(const ClassA &b) {
+        cout << "Assignment constructor ClassA!" << endl;
+        this->number = b.number;
+        return *this;
+    }
+
+    const ClassA operator+(const ClassA &b) const {
+        ClassA tmp;
+        tmp.number = this->number + b.number;
+        return tmp;
+//        return ClassA(this->number + b.number);
+    }
+
 };
 
 class ClassB : public ClassA {
@@ -51,14 +78,17 @@ public:
         cout << "Default constructor: ClassB!" << endl;
     }
 
-    ClassB(double n) {
-        _number = n;
+    ClassB(double n1, double n2 = 0) : ClassA(n2) {
+        _number = n1;
         cout << "Constructor: ClassB!" << endl;
     }
 
-    ~ClassB() override {
-        cout << "Destructor: ClassB!" << endl;
-    }
 };
+
+class ClassC : public ClassA {
+public:
+    double __number = 0;
+};
+
 
 #endif //CHAPTER13_TEST_H
